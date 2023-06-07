@@ -1,0 +1,137 @@
+@font-face {
+    font-family: "SF Pro Display";
+    font-weight: 700;
+    font-style: normal;
+    src: local("SF Pro Display Bold"),
+        url("./sf-pro-display/SFProDisplay-Bold.woff2")
+        format("woff2"),
+        url("./sf-pro-display/SFProDisplay-Bold.woff") format("woff"),
+        url("./sf-pro-display/SFProDisplay-Bold.ttf")
+        format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "SF Pro Display";
+    font-weight: 600;
+    font-style: normal;
+    src: local("SF Pro Display Semibold"),
+        url("./sf-pro-display/SFProDisplay-Semibold.woff2")
+        format("woff2"),
+        url("./sf-pro-display/SFProDisplay-Semibold.woff")
+        format("woff"),
+        url("./sf-pro-display/SFProDisplay-Semibold.ttf")
+        format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "SF Pro Display";
+    font-weight: 500;
+    font-style: normal;
+    src: local("SF Pro Display Medium"),
+        url("./sf-pro-display/SFProDisplay-Medium.woff2")
+        format("woff2"),
+        url("./sf-pro-display/SFProDisplay-Medium.woff")
+        format("woff");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "SF Pro Display";
+    font-weight: 400;
+    font-style: normal;
+    src: local("SF Pro Display Regular"),
+        url("./sf-pro-display/SFProDisplay-Regular.woff2")
+        format("woff2"),
+        url("./sf-pro-display/SFProDisplay-Regular.woff")
+        format("woff"),
+        url("./sf-pro-display/SFProDisplay-Regular.ttf")
+        format("truetype");
+    font-display: swap;
+}
+
+
+$weight-regular: 400;
+$weight-medium: 500;
+$weight-semi-bold: 600;
+$weight-bold: 700;
+$size-xxs: 14px;
+$size-xs: 16px;
+$size-s: 20px;
+$size-m: 24px;
+$size-l: 28px;
+$size-xl: 36px;
+$size-xxl: 48px;
+$size-xxxl: 56px;
+$line-height-xs: 1;
+$line-height-s: 1.33;
+$line-height-m: 1.54;
+
+.l {
+    font-size: $size-l;
+    line-height: $line-height-s;
+}
+
+.m {
+    font-size: $size-m;
+    line-height: $line-height-s;
+}
+
+.xs {
+    font-size: $size-xs;
+    line-height: $line-height-m;
+}
+
+.font {
+    &.pro-display {
+        font-family: "SF Pro Display", sans-serif;
+    }
+
+    &.xl,
+    &.l,
+    &.m,
+    &.s,
+    &.xs {
+        font-weight: $weight-regular;
+
+        &--500 {
+        font-weight: $weight-medium;
+        }
+        &--600 {
+        font-weight: $weight-semi-bold;
+        }
+        &--700 {
+        font-weight: $weight-bold;
+        }
+    }
+
+    &.xl {
+        font-size: $size-xl;
+        line-height: $line-height-xs;
+    }
+
+    &.l {
+        @extend .l;
+    }
+
+    &.m {
+        &.lh-100 {
+        line-height: $line-height-xs;
+        }
+    }
+
+    &.s {
+        font-size: $size-xs;
+        line-height: $line-height-m;
+
+        &.lh-133 {
+        line-height: $line-height-s;
+        }
+    }
+
+    &.xs {
+        font-size: $size-xxs;
+        line-height: $line-height-s;
+    }
+}
