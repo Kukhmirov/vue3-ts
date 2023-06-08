@@ -1,9 +1,6 @@
 <template>
     <the-header />
     <RouterView />
-    <div class="cursor font">
-        Click
-    </div>
 </template>
 
 <script setup lang="ts">
@@ -30,9 +27,8 @@ import TheHeader from "@/components/header/TheHeader.vue";
     pointer-events: none;
     transform: translate(-50%, -50%) scale(0);
     transition: transform 0.3s ease;
-    background-color: $light-grey;
+    background-color: $lavender;
     z-index: 1000;
-    backdrop-filter: blur(0.5px);
     color: $black;
     font-weight: bold;
     text-transform: uppercase;

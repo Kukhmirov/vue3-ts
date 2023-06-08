@@ -13,7 +13,7 @@
                     :key="link + index"
                     to="/"
                     class="header__link"
-                    @mouseenter="buttonEnter(name)"
+                    @mouseenter="buttonEnter( $event, name)"
                     @mouseleave="buttonLeave"
                     @mousemove="buttonMove"
                 >
@@ -22,7 +22,7 @@
             </nav>
             <button
                 class="button header__button"
-                @mouseenter="buttonEnter('Subscribe')"
+                @mouseenter="buttonEnter($event, 'Subscribe')"
                 @mouseleave="buttonLeave"
                 @mousemove="buttonMove"
             >
@@ -40,14 +40,14 @@ import { cursorPlugin } from "@/utils/cursor-style";
 
 const menuItems = getMenuItems();
 
-const buttonEnter = (name: string) => {
-    cursorPlugin.show(name);
+const buttonEnter = (e: MouseEvent, name: string) => {
+    cursorPlugin.show(e, name);
 };
 const buttonMove = (e: MouseEvent) => {
     cursorPlugin.move(e);
 };
-const buttonLeave = () => {
-    cursorPlugin.hide();
+const buttonLeave = (e: MouseEvent) => {
+    cursorPlugin.hide(e);
 };
 </script>
 
@@ -80,6 +80,7 @@ const buttonLeave = () => {
         margin-left: 62px;
         width: 180px;
         background-color: $white;
+        color: $black;
         cursor: none;
         &::after {
             content: '';

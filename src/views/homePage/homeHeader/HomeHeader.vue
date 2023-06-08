@@ -15,13 +15,13 @@
 import { cursorPlugin } from "@/utils/cursor-style";
 
 const buttonEnter = () => {
-    cursorPlugin.show();
+    // cursorPlugin.show();
 };
 const buttonMove = (e: MouseEvent) => {
-    cursorPlugin.move(e);
+    // cursorPlugin.move(e);
 };
 const buttonLeave = () => {
-    cursorPlugin.hide();
+    // cursorPlugin.hide();
 };
 </script>
 

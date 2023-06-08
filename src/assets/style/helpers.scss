@@ -4,3 +4,8 @@ button {
   height: 56px;
   background-color: $yellow;
 }
+
+.hidden-text {
+  transition: all .4s;
+  color: transparent !important;
+}
