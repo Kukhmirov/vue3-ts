@@ -1,10 +1,28 @@
 <template>
-    <div class="home-header">
-        <div class="home-header__content">sdfsdf</div>
+    <div 
+        class="home-header"
+        @mouseenter="buttonEnter"
+        @mouseleave="buttonLeave"
+        @mousemove="buttonMove"
+    >
+        <div class="home-header__content">
+            sdfsdf
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { cursorPlugin } from "@/utils/cursor-style";
+
+const buttonEnter = () => {
+    cursorPlugin.show();
+};
+const buttonMove = (e: MouseEvent) => {
+    cursorPlugin.move(e);
+};
+const buttonLeave = () => {
+    cursorPlugin.hide();
+};
 </script>
 
 <style scoped lang="scss">
