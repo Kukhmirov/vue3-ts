@@ -10,7 +10,7 @@ const menuItems: Menu[] = [
     },
     {
         name: "Blog",
-        link: "/blog",
+        link: "/home",
     },
     {
         name: "About Us",
@@ -18,7 +18,7 @@ const menuItems: Menu[] = [
     },
     {
         name: "Contact us",
-        link: "/contact",
+        link: "/",
     },
 ];
 

@@ -11,7 +11,7 @@
                 <RouterLink
                     v-for="({name, link}, index) in menuItems"
                     :key="link + index"
-                    to="/"
+                    :to="link"
                     class="header__link"
                     @mouseenter="buttonEnter( $event, name)"
                     @mouseleave="buttonLeave"
@@ -57,10 +57,12 @@ const buttonLeave = (e: MouseEvent) => {
 .header {
     display: flex;
     justify-content: space-between;
+    position: relative;
     align-items: center;
     height: 80px;
     padding: 0 80px;
     background-color: $black;
+    z-index: 1000;
     &__menu {
         display: flex;
         align-items: center;
