@@ -1,17 +1,14 @@
 <template>
     <div class="header">
         <div class="header__label">
-            <img
-                :src="logotip"
-                alt="Логотип"
-            >
+            <h1 class="header__logo font pro-display xl xl--700">Kukhmirov</h1>
         </div>
         <div class="header__menu">
             <nav>
                 <RouterLink
                     v-for="({name, link}, index) in menuItems"
                     :key="link + index"
-                    to="/"
+                    :to="link"
                     class="header__link"
                     @mouseenter="buttonEnter( $event, name)"
                     @mouseleave="buttonLeave"
@@ -33,7 +30,6 @@
 </template>
 
 <script setup lang="ts">
-import { logotip } from "@/assets/image/icons";
 import { getMenuItems } from "@/data/header/headerMenu";
 import { cursorPlugin } from "@/utils/cursor-style";
 
@@ -57,10 +53,15 @@ const buttonLeave = (e: MouseEvent) => {
 .header {
     display: flex;
     justify-content: space-between;
+    position: relative;
     align-items: center;
     height: 80px;
     padding: 0 80px;
     background-color: $black;
+    z-index: 1000;
+    &__logo {
+        color: $white;
+    }
     &__menu {
         display: flex;
         align-items: center;
