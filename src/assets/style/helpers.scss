@@ -1,5 +1,9 @@
 @import "./colors.scss";
 
+* {
+  box-sizing: border-box;
+}
+
 button {
   height: 56px;
   background-color: $yellow;

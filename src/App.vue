@@ -1,12 +1,14 @@
 <template>
     <the-header />
     <RouterView />
+    <backgound-three />
 </template>
 
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 
 import TheHeader from "@/components/header/TheHeader.vue";
+import backgoundThree from "@/views/mainPage/MainPage.vue";
 </script>
 
 <style lang="scss">

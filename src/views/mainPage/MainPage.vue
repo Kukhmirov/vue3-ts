@@ -11,7 +11,8 @@ import * as THREE from "three";
 import { Lensflare, LensflareElement } from "three/addons/objects/Lensflare.js";
 import { onMounted, ref, watchEffect } from "vue";
 
-import { sunTexture, eartTexture, lensflare } from "@/assets/image/image";
+import { sunTexture, eartTexture, lensflare, milkSpace } from "@/assets/image/image";
+import useMousePosition from "@/utils/my-mouse-plugin";
 
 
 const canvasRef = ref<HTMLElement | null>(null);
@@ -19,17 +20,23 @@ let camera: THREE.PerspectiveCamera;
 let scene: THREE.Scene;
 let renderer: THREE.WebGLRenderer;
 let planet: THREE.Mesh;
-let mouseX = 0;
-let mouseY = 0;
+const { mouseX, mouseY } = useMousePosition();
 
 
 // Создание сцены, камеры и 3D объекта
 function init(): void {
     // Создание сцены
     scene = new THREE.Scene();
+
     // Создание камеры
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 5;
+
+    
+    //Добавление звездного поля
+    const stars = createStars();
+    scene.add(stars);
+
     // Создание 3D объекта
     const geometry = new THREE.SphereGeometry(1, 32, 32);
     const textureLoader = new THREE.TextureLoader().load(eartTexture);
@@ -70,7 +77,7 @@ function init(): void {
         light.add(lensflare);
     }
 
-    // Создание рендерера, (alpha: true) 
+    // Создание рендерера
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     canvasRef.value!.appendChild(renderer.domElement);
@@ -80,10 +87,44 @@ function init(): void {
 function animate(): void {
     requestAnimationFrame(animate);
     planet.rotation.y += 0.001;
-    camera.position.x += (mouseX - camera.position.x) * 0.05;
-    camera.position.y += (mouseY - camera.position.y) * 0.05;
+    camera.position.x += (mouseX.value - camera.position.x) * 0.05;
+    camera.position.y += (mouseY.value - camera.position.y) * 0.05;
     camera.lookAt(scene.position);
     renderer.render(scene, camera);
+}
+
+function createStars(): THREE.Points {
+    const geometry = new THREE.BufferGeometry();  
+    const vertices = [];
+
+    // Создание 1000 рандомных точек
+    for (let i = 0; i < 1000; i ++) {
+        const x = Math.random() * 2000 - 1000;
+        const y = Math.random() * 2000 - 1000;
+        const z = Math.random() * 2000 - 1000;
+        vertices.push(x, y, z);
+    }
+
+    geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
+
+    // Создание текстуры звездного поля
+    const sprite = new THREE.TextureLoader().load(milkSpace);
+    sprite.wrapS = THREE.RepeatWrapping;
+    sprite.wrapT = THREE.RepeatWrapping;
+    sprite.repeat.set(4, 4);
+    const starMaterial = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: 2.5, // <--- увеличить размер
+        map: sprite,
+        blending: THREE.AdditiveBlending, // <--- добавить параметр `blending`
+        transparent: true,
+        opacity: 0.9,
+        sizeAttenuation: false,
+    });
+ 
+    const stars = new THREE.Points(geometry, starMaterial);
+
+    return stars;
 }
 
 // Обработка изменений размеров окна браузера
@@ -103,7 +144,8 @@ watchEffect(() => {
 
 //Отслеживание координат по осям X und Y
 function handleMouseMove(event: MouseEvent): void {
-    mouseX = (event.clientX / window.innerWidth) * 2 - 1; mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    mouseX.value = (event.clientX / window.innerWidth) * 2 - 1;
+    mouseY.value = -(event.clientY / window.innerHeight) * 2 + 1;
 }
 
 onMounted(() => {
@@ -115,12 +157,6 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-
-h1 {
-    position: relative;
-    z-index: 1;
-
-}
 .canvas {
     position: absolute;
     top: 0;

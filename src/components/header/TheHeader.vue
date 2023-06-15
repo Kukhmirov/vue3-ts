@@ -1,10 +1,7 @@
 <template>
     <div class="header">
         <div class="header__label">
-            <img
-                :src="logotip"
-                alt="Логотип"
-            >
+            <h1 class="header__logo font pro-display xl xl--700">Kukhmirov</h1>
         </div>
         <div class="header__menu">
             <nav>
@@ -33,7 +30,6 @@
 </template>
 
 <script setup lang="ts">
-import { logotip } from "@/assets/image/icons";
 import { getMenuItems } from "@/data/header/headerMenu";
 import { cursorPlugin } from "@/utils/cursor-style";
 
@@ -63,6 +59,9 @@ const buttonLeave = (e: MouseEvent) => {
     padding: 0 80px;
     background-color: $black;
     z-index: 1000;
+    &__logo {
+        color: $white;
+    }
     &__menu {
         display: flex;
         align-items: center;
