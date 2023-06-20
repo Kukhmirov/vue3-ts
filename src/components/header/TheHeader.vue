@@ -36,8 +36,10 @@ import { cursorPlugin } from "@/utils/cursor-style";
 
 const menuItems = getMenuItems();
 
-const buttonEnter = (e: MouseEvent, name: string) => {
-    cursorPlugin.show(e, name);
+const contentHidden = true;
+
+const buttonEnter = (e: MouseEvent, name?: string) => {
+    cursorPlugin.show(e, name, contentHidden);
 };
 const buttonMove = (e: MouseEvent) => {
     cursorPlugin.move(e);

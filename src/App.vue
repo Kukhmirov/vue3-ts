@@ -8,7 +8,7 @@
 import { RouterView } from "vue-router";
 
 import TheHeader from "@/components/header/TheHeader.vue";
-import backgoundThree from "@/views/mainPage/MainPage.vue";
+import backgoundThree from "@/views/animateBackground/animateBackground.vue";
 </script>
 
 <style lang="scss">
