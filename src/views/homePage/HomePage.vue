@@ -10,7 +10,7 @@
         </div>
         <div class="main__content">
             <skills-card
-                v-for="(item, index) in menuItems"
+                v-for="(item, index) in skillsCards"
                 :key="item.title + index"
                 @mouseenter="buttonEnter($event)"
                 @mouseleave="buttonLeave"
@@ -34,10 +34,10 @@
 import { onMounted, ref } from "vue";
 
 import SkillsCard from "@/components/utility/SkillsCard.vue";
-import { getSkillsCards } from "@/data/skills";
+import { useDataStore } from "@/stores/getData";
 import { cursorPlugin } from "@/utils/cursor-style";
 
-const menuItems = getSkillsCards();
+const dataStore = useDataStore();
 
 const buttonEnter = (e: MouseEvent, name?: string) => {
     cursorPlugin.show(e, name);
@@ -62,8 +62,10 @@ const setText = () => {
 };
 
 onMounted(() => {
+    dataStore.fetchSkillsCards();
     setText();
 });
+const skillsCards = dataStore.getSkillsCards;
 
 </script>
 

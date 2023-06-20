@@ -1,11 +1,11 @@
-interface Skills {
-    title: string,
-    count: string,
-    description: string,
-    link: string,
-}
+export interface SkillDataItem {
+    title: string;
+    count: string;
+    description: string;
+    link: string;
+  }
 
-const skillsCards: Skills[] = [
+export const skillsData: SkillDataItem [] = [
     {
         title: "HTML",
         count: "90%",
@@ -32,4 +32,4 @@ const skillsCards: Skills[] = [
     },
 ];
 
-export const getSkillsCards = () => skillsCards;
+// export const getSkillsCards = () => skillsData;
