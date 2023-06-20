@@ -7,10 +7,10 @@ class CursorPlugin {
         document.body.appendChild(this.cursor);
     }
   
-    public show(e: MouseEvent, name?: string) {
+    public show(e: MouseEvent, name?: string, contentHidden?: boolean) {
         const target = e.currentTarget as HTMLElement;
-        target.classList.add("hidden-text");
-        this.cursor.innerHTML = name || "click";
+        contentHidden && target.classList.add("hidden-text");
+        this.cursor.innerHTML = name || "";
         this.cursor.style.transform = "translate(-50%, -50%) scale(1)";
     }
   
