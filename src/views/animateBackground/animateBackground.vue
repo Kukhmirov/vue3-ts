@@ -2,7 +2,6 @@
     <div
         ref="canvasRef"
         class="canvas"
-        @mousemove="handleMouseMove"
     />
 </template>
 
@@ -21,6 +20,9 @@ let scene: THREE.Scene;
 let renderer: THREE.WebGLRenderer;
 let planet: THREE.Mesh;
 const { mouseX, mouseY } = useMousePosition();
+let startPlanetPosition: THREE.Vector3;
+let startSunPosition: THREE.Vector3;
+let scrollPosition = 0;
 
 
 // Создание сцены, камеры и 3D объекта
@@ -81,6 +83,9 @@ function init(): void {
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     canvasRef.value!.appendChild(renderer.domElement);
+
+    startPlanetPosition = planet.position.clone();
+    startSunPosition = scene.children.find((child) => child.type === "PointLight")!.position.clone();
 }
 
 // Анимация кручения 3D объекта
@@ -142,11 +147,23 @@ watchEffect(() => {
     }
 });
 
-//Отслеживание координат по осям X und Y
-function handleMouseMove(event: MouseEvent): void {
-    mouseX.value = (event.clientX / window.innerWidth) * 2 - 1;
-    mouseY.value = -(event.clientY / window.innerHeight) * 2 + 1;
-}
+window.onscroll = () => {
+    if (document.body.getBoundingClientRect().top === 0) {
+        planet.position.copy(startPlanetPosition);
+        scene.children.find((child) => child.type === "PointLight")!.position.copy(startSunPosition);
+        scrollPosition = 0;
+    } else {
+        const delta = window.scrollY - scrollPosition;
+        scrollPosition = window.scrollY;
+        const planetOffset = delta / 150;
+        const sunOffset = delta / 500;
+        planet.position.x -= planetOffset;
+        planet.position.z -= planetOffset;
+        planet.position.y += planetOffset;
+
+        scene.children.find((child) => child.type === "PointLight")!.position.x += sunOffset;
+    }
+};
 
 onMounted(() => {
     init();
@@ -158,10 +175,12 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .canvas {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+    z-index: -1;
 }
 </style>

@@ -1,4 +1,5 @@
 <template>
+    <backgound-three />
     <div class="main">
         <div class="main__wrapper-title">
             <h3
@@ -36,6 +37,8 @@ import { onMounted, ref } from "vue";
 import SkillsCard from "@/components/utility/SkillsCard.vue";
 import { useDataStore } from "@/stores/getData";
 import { cursorPlugin } from "@/utils/cursor-style";
+import backgoundThree from "@/views/animateBackground/animateBackground.vue";
+
 
 const dataStore = useDataStore();
 
