@@ -1,9 +1,9 @@
-interface Menu {
-    name: string,
-    link: string,
-}
+export interface HeaderMenuItem {
+    name: string;
+    link: string;
+  }
 
-const menuItems: Menu[] = [
+export const menuItems: HeaderMenuItem[] = [
     {
         name: "Home",
         link: "/",
@@ -22,4 +22,4 @@ const menuItems: Menu[] = [
     },
 ];
 
-export const getMenuItems = () => menuItems;
+// export const getMenuItems = () => menuItems;

@@ -6,7 +6,7 @@
         <div class="header__menu">
             <nav>
                 <RouterLink
-                    v-for="({name, link}, index) in menuItems"
+                    v-for="({name, link}, index) in menuLinks"
                     :key="link + index"
                     :to="link"
                     class="header__link"
@@ -30,11 +30,13 @@
 </template>
 
 <script setup lang="ts">
-import { getMenuItems } from "@/data/header/headerMenu";
+import { onMounted } from "vue";
+
+import { useDataStore } from "@/stores/getData";
 import { cursorPlugin } from "@/utils/cursor-style";
 
 
-const menuItems = getMenuItems();
+const menuItems = useDataStore();
 
 const contentHidden = true;
 
@@ -47,6 +49,12 @@ const buttonMove = (e: MouseEvent) => {
 const buttonLeave = (e: MouseEvent) => {
     cursorPlugin.hide(e);
 };
+
+onMounted(() => {
+    menuItems.fetchMenuLinks();
+});
+
+const menuLinks = menuItems.getMenuItems;
 </script>
 
 <style scoped lang="scss">
@@ -59,7 +67,7 @@ const buttonLeave = (e: MouseEvent) => {
     align-items: center;
     height: 80px;
     padding: 0 80px;
-    background-color: $black;
+    background: transparent;
     z-index: 1000;
     &__logo {
         color: $white;
