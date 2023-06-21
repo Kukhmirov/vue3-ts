@@ -67,7 +67,7 @@ const menuLinks = menuItems.getMenuItems;
     align-items: center;
     height: 80px;
     padding: 0 80px;
-    background-color: $black;
+    background: transparent;
     z-index: 1000;
     &__logo {
         color: $white;
