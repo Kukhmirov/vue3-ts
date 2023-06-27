@@ -1,12 +1,14 @@
 <template>
-    <div class="skills__card">
+    <div
+        class="title__card"
+    >
         <h5>
             <slot name="title" />
         </h5>
-        <span class="skills__card-count">
+        <span class="title__card-count">
             <slot name="count" />
         </span>
-        <p class="skills__description">
+        <p class="title__description">
             <slot name="description" />
         </p>
     </div>
@@ -17,7 +19,7 @@
 </script>
   
 <style scoped lang="scss">
-    .skills {
+    .title {
         &__card {
             position: relative;
             display: flex;
@@ -25,7 +27,7 @@
             justify-content: space-between;
             align-items: center;
             width: 200px;
-            height: 200px;
+            height: 100%;
             padding: 20px;
             backdrop-filter: blur(5px);
             background-color: rgba(255, 255, 255, 0.01);
@@ -34,7 +36,6 @@
             &:hover {
                 background-color: rgba(255, 255, 255, 0.2);
                 cursor: none;
-                // filter: blur(3px);
                 &::before {
                     opacity: 1;
                 }
@@ -70,7 +71,7 @@
                 transition: opacity 0.3s ease-in-out;
             }
         }
-        .skills__card-count {
+        &__card-count {
             font-size: 48px;
         }
         &__description {

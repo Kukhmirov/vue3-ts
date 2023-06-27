@@ -52,15 +52,11 @@ function init(): void {
     scene.add(planet);
 
     // Создание двух направленных источников света (солнце и "восход")
-    const lights = new THREE.DirectionalLight(0xffffff, .2);
-    lights.position.set(1, 1, 1);
+    const lights = new THREE.DirectionalLight(0xffffff, 0.9);
+    lights.position.set(5, 3, 5);
     scene.add(lights);
 
     // lensflares
-    const dirLight = new THREE.DirectionalLight(0xffffff, 0.05);
-    dirLight.position.set(-2, -2, -2).normalize();
-    dirLight.color.setHSL(0.1, 0.7, 0.5);
-    scene.add(dirLight);
     addLight(1.995, 0.5, 1.9, 2.4, 1, -0.3);
 
     function addLight(h: number, s: number, l: number, x: number, y: number, z: number) {
@@ -155,8 +151,8 @@ window.onscroll = () => {
     } else {
         const delta = window.scrollY - scrollPosition;
         scrollPosition = window.scrollY;
-        const planetOffset = delta / 150;
-        const sunOffset = delta / 500;
+        const planetOffset = delta / 300;
+        const sunOffset = delta / 600;
         planet.position.x -= planetOffset;
         planet.position.z -= planetOffset;
         planet.position.y += planetOffset;

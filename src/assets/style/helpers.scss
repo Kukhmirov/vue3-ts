@@ -6,7 +6,7 @@
 
 button {
   height: 56px;
-  background-color: $yellow;
+  background-color: $sun;
 }
 
 .hidden-text {
@@ -34,4 +34,8 @@ button {
   color: $black;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+a {
+  text-decoration: none;
 }
