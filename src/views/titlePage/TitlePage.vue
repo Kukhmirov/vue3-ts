@@ -16,7 +16,7 @@
                 @mouseenter="buttonEnter($event)"
                 @mouseleave="buttonLeave"
                 @mousemove="buttonMove"
-                @click="(event) => showDescription(event, index)"
+                @click="(event) => showDescription(event, item.title)"
             >
                 <template v-slot:title>
                     {{ item.title }}
@@ -36,13 +36,14 @@
 import { onMounted, ref } from "vue";
 
 import TitleCard from "@/components/utility/TitleCard.vue";
+import { EMITS, MODAL_TYPE } from "@/data/constants/modalName";
 import { useDataStore } from "@/stores/getData";
 import { cursorPlugin } from "@/utils/cursor-style";
 import backgoundThree from "@/views/animateBackground/animateBackground.vue";
 
 
 const dataStore = useDataStore();
-const emit = defineEmits([ "cardClick" ]);
+const emit = defineEmits([ EMITS.isOpen ]);
 
 const buttonEnter = (e: MouseEvent, name?: string) => {
     cursorPlugin.show(e, name);
@@ -74,8 +75,8 @@ const skillsCards = dataStore.getSkillsCards;
 
 const openModal: Boolean = true;
 
-const showDescription = (event: Event, index: Number) => {
-    emit("cardClick", openModal);
+const showDescription = (event: Event, title: string) => {
+    emit(EMITS.isOpen, openModal, title !== MODAL_TYPE.WORK);
 };
 
 </script>
