@@ -1,3 +1,5 @@
+import { MODAL_TYPE } from "@/data/constants/modalName";
+
 export interface SkillDataItem {
     title: string;
     count: number;
@@ -7,19 +9,19 @@ export interface SkillDataItem {
 
 export const skillsData: SkillDataItem [] = [
     {
-        title: "INFO",
+        title: MODAL_TYPE.INFO,
         count: 90,
         description: "по результатам тестирования w3schools",
         link: "/",
     },
     {
-        title: "CSS/препроц...",
+        title: MODAL_TYPE.WORK,
         count: 92,
         description: "по результатам тестирования w3schools",
         link: "/home",
     },
     {
-        title: "JS",
+        title: MODAL_TYPE.CONNECT,
         count: 80,
         description: "Оценка основана на собственных наблюдениях",
         link: "/about",

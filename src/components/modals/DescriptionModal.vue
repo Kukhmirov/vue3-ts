@@ -1,8 +1,13 @@
 <template>
     <div
+        ref="modal"
         class="description-modal"
         :class="{'open': isOpenModal}"
-    >
+    >   
+        <div
+            class="description-modal__hide-back"
+            :style="{bottom: bottom}"
+        />
         <button 
             class="description-modal__close"
             @mouseenter="buttonEnter($event)"
@@ -10,29 +15,38 @@
             @mousemove="buttonMove"
             @click="closeModal"
         />
-        <div class="description-modal__content">
-            <div
-                class="font pro-display xxs xl--500"
-                v-html="displayText"
+        <template v-if="typeModal">
+            <div class="description-modal__content">
+                <div
+                    class="font pro-display xxs xl--500"
+                    v-html="displayText"
+                />
+                <img
+                    class="description-modal__photo"
+                    src="@/assets/image/img/photo-me.jpg"
+                    alt="фотография Кухмиров"
+                >
+            </div>
+        </template>
+        <template v-else>
+            <the-slider
+                :items="['One', 'Two', 'Three', 'One', 'Two', 'Three']"
             />
-            <img
-                class="description-modal__photo"
-                src="@/assets/image/img/photo-me.jpg"
-                alt="фотография Кухмиров"
-            >
-        </div>
+        </template>
     </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
+import TheSlider from "@/components/utility/slider/TheSlider.vue";
 import { getSkillsData, type SkillDataItem } from "@/data/info";
 import { cursorPlugin } from "@/utils/cursor-style";
 
 
 interface Props {
   isOpenModal: Boolean;
+  typeModal: Boolean;
 }
 const props = defineProps<Props>();
 
@@ -58,6 +72,7 @@ const closeModal = () => {
 
 onMounted(() => {
     setText();
+    watchModalHeight();
 });
 
 const buttonEnter = (e: MouseEvent, name?: string) => {
@@ -70,6 +85,18 @@ const buttonLeave = (e: MouseEvent) => {
     cursorPlugin.hide(e);
 };
 
+const bottom = ref("");
+const modal = ref(null);
+
+const watchModalHeight = () => {
+    const modalEl = modal.value as unknown as HTMLElement;
+    const observer = new ResizeObserver(() => {
+        const height = modalEl.clientHeight;
+        bottom.value = `${height}px`;
+    });
+    observer.observe(modalEl);
+};
+
 </script>
 
 <style lang="scss">
@@ -77,31 +104,27 @@ const buttonLeave = (e: MouseEvent) => {
 
 .description-modal {
     background-color: $black;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 0%;
     max-height: 90vh;
     display: flex;
-    padding: 30px 110px 30px 30px;
+    padding: 30px;
     z-index: 12;
     transition: height 0.5s ease-in-out;
     overflow: auto;
     &::-webkit-scrollbar {
         display: none;
     }
-    &::before {
-        content: "";
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 10;
-    }
     &.open {
         height: fit-content;
+    }
+    &__hide-back {
+        position: fixed;
+        top: 0;
+        width: 100%;
     }
 
     &__close {
@@ -145,5 +168,15 @@ const buttonLeave = (e: MouseEvent) => {
         border: solid 8px #fff;
         border-radius: 16px;
     }
+    // &__slider {
+    //     display: flex;
+    //     flex-direction: column;
+    //     overflow-x: auto;
+    //     h1 {
+    //         color: $white;
+    //         margin: 0;
+    //         padding: 0;
+    //     }
+    // }
 }
 </style>
