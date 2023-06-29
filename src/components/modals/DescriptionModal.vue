@@ -29,9 +29,7 @@
             </div>
         </template>
         <template v-else>
-            <the-slider
-                :items="['One', 'Two', 'Three', 'One', 'Two', 'Three']"
-            />
+            <the-slider />
         </template>
     </div>
 </template>

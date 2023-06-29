@@ -10,52 +10,22 @@
         @touchmove="drag"
         @mousewheel="wheelScroll"
     >
-        <div class="slider__card">
-            <img
-                src="~@/assets/image/img/photo-me.jpg"
-                alt="слайд"
-            >
-        </div>
-        <div class="slider__card">
-            <img
-                src="~@/assets/image/img/photo-me.jpg"
-                alt="слайд"
-            >
-        </div>
-        <div class="slider__card">
-            <img
-                src="~@/assets/image/img/photo-me.jpg"
-                alt="слайд"
-            >
-        </div>
-        <div class="slider__card">
-            <img
-                src="~@/assets/image/img/photo-me.jpg"
-                alt="слайд"
-            >
-        </div>
-        <div class="slider__card">
-            <img
-                src="~@/assets/image/img/photo-me.jpg"
-                alt="слайд"
-            >
-        </div>
-        <div class="slider__card">
-            <img
-                src="~@/assets/image/img/photo-me.jpg"
-                alt="слайд"
-            >
-        </div>
-        <div class="slider__card">
-            <img
-                src="~@/assets/image/img/photo-me.jpg"
-                alt="слайд"
-            >
-        </div>
+        <template
+            v-for="(workCard, index) in workCards"
+            :key="index"
+        >
+            <work-card 
+                v-bind="workCard"
+            />
+        </template>
     </div>
 </template>
   
 <script setup lang="ts">
+import WorkCard from "@/components/utility/WorkCard.vue";
+import { useDataStore } from "@/stores/getData";
+
+const workCards = useDataStore().getWorkCards;
 
 let startX: number, startY: number, currentX: number, currentY: number;
 let isDragging: Boolean = false;
@@ -108,7 +78,7 @@ const drag = (event: MouseEvent | TouchEvent) => {
 // функция для прокрутки содержимого слайдера колесиком мыши
 const wheelScroll = (event: WheelEvent) => {
     event.preventDefault();
-    const deltaX = Math.round(event.deltaY || (event as any).wheelDeltaY || (-1 * (event as any).detail));
+    const deltaX = Math.round(event.deltaY || (-1 * (event as any).detail));
     dragScroll(deltaX);
 };
 
@@ -147,22 +117,6 @@ const dragScroll = (deltaX: number) => {
         &::-webkit-scrollbar-track {
             border-radius: 10px;
             background-color: transparent;
-        }
-    }
-    &__card {
-        position: relative;
-        height: 350px;
-        max-width: 600px;
-        margin: 0 5px 10px 0;
-        overflow: hidden;
-        border-radius: 16px;
-        flex-shrink: 0;
-        img {
-            width: 600px;
-            height: 100%;
-            border: solid 8px #fff;
-            border-radius: 16px;
-            pointer-events: none;
         }
     }
 }

@@ -1,6 +1,6 @@
 <template>
+    <the-header @update:isOpen="openInformationModal" />
     <title-page @update:isOpen="openInformationModal" />
-    <!-- <technology-page /> -->
     <description-modal
         v-if="isOpenModal"
         :is-open-modal="isOpenModal"
@@ -12,8 +12,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
+import TheHeader from "@/components/header/TheHeader.vue";
 import DescriptionModal from "@/components/modals/DescriptionModal.vue";
-// import TechnologyPage from "@/views/technologyPage/TechnologyPage.vue";
 import TitlePage from "@/views/titlePage/TitlePage.vue";
 
 
