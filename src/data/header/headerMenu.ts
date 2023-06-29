@@ -1,3 +1,5 @@
+import { MODAL_TYPE } from "@/data/constants/modalName";
+
 export interface HeaderMenuItem {
     name: string;
     link: string;
@@ -5,19 +7,19 @@ export interface HeaderMenuItem {
 
 export const menuItems: HeaderMenuItem[] = [
     {
-        name: "Home",
+        name: MODAL_TYPE.INFO,
         link: "/",
     },
     {
-        name: "Blog",
+        name: MODAL_TYPE.WORK,
         link: "/home",
     },
     {
-        name: "About Us",
+        name: MODAL_TYPE.PET,
         link: "/about",
     },
     {
-        name: "Contact us",
+        name: MODAL_TYPE.CONNECT,
         link: "/",
     },
 ];

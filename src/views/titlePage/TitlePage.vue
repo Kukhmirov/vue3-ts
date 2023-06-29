@@ -76,6 +76,11 @@ const skillsCards = dataStore.getSkillsCards;
 const openModal: Boolean = true;
 
 const showDescription = (event: Event, title: string) => {
+    if(title === MODAL_TYPE.WORK) {
+        const workCards = useDataStore();
+        workCards.fetchWorkCards();
+    }
+
     emit(EMITS.isOpen, openModal, title !== MODAL_TYPE.WORK);
 };
 

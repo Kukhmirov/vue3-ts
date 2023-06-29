@@ -2,6 +2,7 @@ const MODAL_TYPE = {
     INFO: "info",
     CONNECT: "connect",
     WORK: "work",
+    PET: "pet",
 };
   
 const EMITS = {

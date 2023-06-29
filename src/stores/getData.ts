@@ -2,12 +2,14 @@ import { defineStore } from "pinia";
 
 import { menuItems } from "@/data/header/headerMenu";
 import { skillsData } from "@/data/skills";
+import { workCards } from "@/data/work/work";
 
 export const useDataStore = defineStore({
     id: "dataStore",
     state: () => ({
         menuItems: menuItems,
         skillsCards: skillsData,
+        workCards: workCards,
     }),
     getters: {
         getMenuItems(state) {
@@ -16,6 +18,9 @@ export const useDataStore = defineStore({
         getSkillsCards(state) {
             return state.skillsCards;
         },
+        getWorkCards(state) {
+            return state.workCards;
+        },
     },
     actions: {
         fetchSkillsCards() {
@@ -23,6 +28,9 @@ export const useDataStore = defineStore({
         },
         fetchMenuLinks() {
             this.menuItems = menuItems;
+        },
+        fetchWorkCards() {
+            this.workCards = workCards;
         },
     },
 });

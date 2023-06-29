@@ -4,19 +4,17 @@
             <h1 class="header__logo font pro-display xl xl--700">Kukhmirov</h1>
         </div>
         <div class="header__menu">
-            <nav>
-                <RouterLink
-                    v-for="({name, link}, index) in menuLinks"
-                    :key="link + index"
-                    :to="link"
-                    class="header__link"
-                    @mouseenter="buttonEnter( $event, name)"
-                    @mouseleave="buttonLeave"
-                    @mousemove="buttonMove"
-                >
-                    {{ name }}
-                </RouterLink>
-            </nav>
+            <p
+                v-for="({name}, index) in menuLinks"
+                :key="name + index"
+                class="header__link"
+                @mouseenter="buttonEnter( $event, name)"
+                @mouseleave="buttonLeave"
+                @mousemove="buttonMove"
+                @click="(event) => showDescription(event, name)"
+            >
+                {{ name }}
+            </p>
             <button
                 class="button header__button"
                 @mouseenter="buttonEnter($event, 'Subscribe')"
@@ -32,11 +30,13 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 
+import { EMITS, MODAL_TYPE } from "@/data/constants/modalName";
 import { useDataStore } from "@/stores/getData";
 import { cursorPlugin } from "@/utils/cursor-style";
 
 
 const menuItems = useDataStore();
+const emit = defineEmits([ EMITS.isOpen ]);
 
 const contentHidden = true;
 
@@ -48,6 +48,17 @@ const buttonMove = (e: MouseEvent) => {
 };
 const buttonLeave = (e: MouseEvent) => {
     cursorPlugin.hide(e);
+};
+
+const openModal: Boolean = true;
+
+const showDescription = (event: Event, title: string) => {
+    if(title === MODAL_TYPE.WORK) {
+        const workCards = useDataStore();
+        workCards.fetchWorkCards();
+    }
+
+    emit(EMITS.isOpen, openModal, title !== MODAL_TYPE.WORK);
 };
 
 onMounted(() => {
@@ -77,6 +88,8 @@ const menuLinks = menuItems.getMenuItems;
         align-items: center;
     }
     &__link {
+        display: flex;
+        flex-direction: row;
         position: relative;
         color: $white;
         margin-left: 24px;
