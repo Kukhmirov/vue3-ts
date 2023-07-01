@@ -1,6 +1,6 @@
 const MODAL_TYPE = {
     INFO: "info",
-    CONNECT: "connect",
+    CONNECT: "contact",
     WORK: "work",
     PET: "pet",
 };

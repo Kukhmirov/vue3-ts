@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 export interface SkillDataItem {
     information: string;
-  }
+}
 
 const skillsData: SkillDataItem[] = [
     {
@@ -18,5 +18,23 @@ const skillsData: SkillDataItem[] = [
         HTML - 90%<br />CSS - 83%<br />SCSS - 78%<br />JS - 70%<br />VUE 2 - 80%<br />VUE 3 - 71%<br /> ThreeJs - 45%<br />NODE JS - 37%HTML - 90%<br />CSS - 83%<br />SCSS - 78%<br />JS - 70%<br />VUE 2 - 80%<br />VUE 3 - 71%<br /> ThreeJs - 45%<br />NODE JS - 37%</p>`,
     },
 ];
+export const contactsData = {
+    contactText: `<h1 class="font pro-display m m--500">CONTACT</h1><br /><br />
+        Если вы хотите работать вместе не стесняйтесь <a href="mailto:Kukhmirov85@gmail.com" class="description-modal__link">связаться со мной</a> или по какой либо другой причине`,
+    contactData: [ 
+        {
+            iconLink: "src/assets/icons/contact/github.svg",
+            hrefLink: "https://github.com/Kukhmirov",
+        },
+        {
+            iconLink: "src/assets/icons/contact/phone.svg",
+            phone: "+79889483279",
+        },
+        {
+            iconLink: "src/assets/icons/contact/telegram.svg",
+            hrefLink: "tg://resolve?domain=@Kukhmi",
+        },
+    ],
+};
 
 export const getSkillsData = () => skillsData;

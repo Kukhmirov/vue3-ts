@@ -15,17 +15,46 @@
             @mousemove="buttonMove"
             @click="closeModal"
         />
-        <template v-if="typeModal">
+        <template v-if="showInfo">
             <div class="description-modal__content">
                 <div
                     class="font pro-display xxs xl--500"
                     v-html="displayText"
                 />
-                <img
-                    class="description-modal__photo"
-                    src="@/assets/image/img/photo-me.jpg"
-                    alt="фотография Кухмиров"
+                <template v-if="props.typeModal === MODAL_TYPE.INFO">
+                    <img
+                        class="description-modal__photo"
+                        src="@/assets/image/img/photo-me.jpg"
+                        alt="фотография Кухмиров"
+                    >
+                </template>
+                <div
+                    v-else
+                    class="description-modal__icons-wrapper"
                 >
+                    <div
+                        v-for="(item) in contactsData.contactData"
+                        :key="item.hrefLink"
+                        class="description-modal__icon-wrapper"
+                    >
+                        <a
+                            :href="item.phone ? `tel:${item.phone}` : item.hrefLink"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <svg
+                                width="30"
+                                height="30"
+                            >
+                                <image
+                                    :xlink:href=item.iconLink
+                                    width="30"
+                                    height="30"
+                                />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
             </div>
         </template>
         <template v-else>
@@ -35,16 +64,18 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 import TheSlider from "@/components/utility/slider/TheSlider.vue";
+import { MODAL_TYPE } from "@/data/constants/modalName";
 import { getSkillsData, type SkillDataItem } from "@/data/info";
+import { useDataStore } from "@/stores/getData";
 import { cursorPlugin } from "@/utils/cursor-style";
 
 
 interface Props {
   isOpenModal: Boolean;
-  typeModal: Boolean;
+  typeModal: String;
 }
 const props = defineProps<Props>();
 
@@ -52,13 +83,30 @@ const emit = defineEmits([ "closeModal" ]);
 
 const info = ref<SkillDataItem[]>(getSkillsData());
 
+const showInfo = computed(() => {
+    return props.typeModal !== MODAL_TYPE.WORK;
+});
 const displayText = ref("");
-const text = info.value[0].information;
+const text = ref<string>("");
+const contactsData = ref();
+const contactData = ref();
+
+
+if (props.typeModal === MODAL_TYPE.INFO) {
+    text.value = info.value[0].information;
+} else {
+    const contactData = useDataStore();
+    contactsData.value = contactData.getContactsData;
+    text.value = contactsData.value.contactText;
+    // contactData.value = contactsData.value.contactData;
+}
+
+
 const index = ref(0);
 
 const setText = () => {
-    displayText.value = text.slice(0, index.value);
-    if (index.value < text.length) {
+    displayText.value = text.value.slice(0, index.value);
+    if (index.value < text.value.length) {
         index.value += 10;
         setTimeout(setText, 40);
     }
@@ -166,15 +214,22 @@ const watchModalHeight = () => {
         border: solid 8px #fff;
         border-radius: 16px;
     }
-    // &__slider {
-    //     display: flex;
-    //     flex-direction: column;
-    //     overflow-x: auto;
-    //     h1 {
-    //         color: $white;
-    //         margin: 0;
-    //         padding: 0;
-    //     }
-    // }
+    &__icons-wrapper {
+        display: flex;
+        flex-direction: row;
+    }
+    &__icon-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        height: 50px;
+        background-color: $sun;
+        margin: 20px 20px 0 0;
+        a {
+            width: 30px;
+            height: 30px;
+        }
+    }
 }
 </style>
