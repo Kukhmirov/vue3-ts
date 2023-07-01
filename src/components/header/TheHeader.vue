@@ -15,14 +15,6 @@
             >
                 {{ name }}
             </p>
-            <button
-                class="button header__button"
-                @mouseenter="buttonEnter($event, 'Subscribe')"
-                @mouseleave="buttonLeave"
-                @mousemove="buttonMove"
-            >
-                Subscribe
-            </button>
         </div>
     </div>
 </template>

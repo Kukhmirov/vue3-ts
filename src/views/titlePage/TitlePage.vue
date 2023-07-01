@@ -21,12 +21,6 @@
                 <template v-slot:title>
                     {{ item.title }}
                 </template>
-                <template v-slot:count>
-                    {{ item.count }}%
-                </template>
-                <template v-slot:description>
-                    {{ item.description }}
-                </template>
             </title-card>
         </div>
     </div>
@@ -80,8 +74,12 @@ const showDescription = (event: Event, title: string) => {
         const workCards = useDataStore();
         workCards.fetchWorkCards();
     }
+    if(title === MODAL_TYPE.CONNECT) {
+        const contactsData = useDataStore();
+        contactsData.fetchContactData();
+    }
 
-    emit(EMITS.isOpen, openModal, title !== MODAL_TYPE.WORK);
+    emit(EMITS.isOpen, openModal, title);
 };
 
 </script>

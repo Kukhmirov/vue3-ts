@@ -27,7 +27,7 @@ export const skillsData: SkillDataItem [] = [
         link: "/about",
     },
     {
-        title: "VUE 2^",
+        title: MODAL_TYPE.PET,
         count: 76,
         description: "Оценка основана на собственных наблюдениях",
         link: "/",

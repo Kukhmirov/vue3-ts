@@ -18,9 +18,9 @@ import TitlePage from "@/views/titlePage/TitlePage.vue";
 
 
 const isOpenModal = ref<boolean>(false);
-const typeModal = ref<boolean>(false);
+const typeModal = ref<string>("");
 
-const openInformationModal = (openModal: boolean, typeModals: boolean) => {
+const openInformationModal = (openModal: boolean, typeModals: string) => {
     isOpenModal.value = openModal;
     typeModal.value = typeModals;
 };
