@@ -49,8 +49,12 @@ const showDescription = (event: Event, title: string) => {
         const workCards = useDataStore();
         workCards.fetchWorkCards();
     }
+    if(title === MODAL_TYPE.CONNECT) {
+        const contactsData = useDataStore();
+        contactsData.fetchContactData();
+    }
 
-    emit(EMITS.isOpen, openModal, title !== MODAL_TYPE.WORK);
+    emit(EMITS.isOpen, openModal, title);
 };
 
 onMounted(() => {

@@ -1,4 +1,9 @@
 /* eslint-disable max-len */
+import {
+    github,
+    telegram,
+    phone,
+} from "@/assets/image/icons";
 export interface SkillDataItem {
     information: string;
 }
@@ -23,15 +28,15 @@ export const contactsData = {
         Если вы хотите работать вместе не стесняйтесь <a href="mailto:Kukhmirov85@gmail.com" class="description-modal__link">связаться со мной</a> или по какой либо другой причине`,
     contactData: [ 
         {
-            iconLink: "src/assets/icons/contact/github.svg",
+            iconLink: github,
             hrefLink: "https://github.com/Kukhmirov",
         },
         {
-            iconLink: "src/assets/icons/contact/phone.svg",
+            iconLink: phone,
             phone: "+79889483279",
         },
         {
-            iconLink: "src/assets/icons/contact/telegram.svg",
+            iconLink: telegram,
             hrefLink: "tg://resolve?domain=@Kukhmi",
         },
     ],
