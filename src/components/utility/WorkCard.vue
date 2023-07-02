@@ -35,6 +35,7 @@ interface WorkCardProps {
 }
 
 const props = defineProps<WorkCardProps>();
+console.log(props.imgLink);
 
 </script>
 

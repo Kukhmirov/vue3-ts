@@ -25,6 +25,7 @@
 import WorkCard from "@/components/utility/WorkCard.vue";
 import { useDataStore } from "@/stores/getData";
 
+
 const workCards = useDataStore().getWorkCards;
 
 let startX: number, startY: number, currentX: number, currentY: number;
