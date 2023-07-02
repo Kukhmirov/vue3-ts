@@ -76,6 +76,9 @@ const menuLinks = menuItems.getMenuItems;
     padding: 0 80px;
     background: transparent;
     z-index: 9;
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
     &__logo {
         color: $white;
     }

@@ -8,6 +8,7 @@ class CursorPlugin {
     }
   
     public show(e: MouseEvent, name?: string, contentHidden?: boolean) {
+        if (window.innerWidth <= 767) return;
         const target = e.currentTarget as HTMLElement;
         contentHidden && target.classList.add("hidden-text");
         this.cursor.innerHTML = name || "";
@@ -15,12 +16,14 @@ class CursorPlugin {
     }
   
     public hide(e: MouseEvent) {
+        if (window.innerWidth <= 767) return;
         const target = e.target as HTMLElement;
         target.classList.remove("hidden-text");
         this.cursor.style.transform = "translate(-50%, -50%) scale(0)";
     }
   
     public move(e: MouseEvent) {
+        if (window.innerWidth <= 767) return;
         this.cursor.style.left = `${e.clientX}px`;
         this.cursor.style.top = `${e.clientY}px`;
     }

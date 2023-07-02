@@ -48,6 +48,9 @@ console.log(props.imgLink);
     overflow: hidden;
     border-radius: 16px;
     flex-shrink: 0;
+    @media (max-width: 767px) {
+        max-width: 300px;
+    }
     img {
         width: 100%;
         height: 100%;

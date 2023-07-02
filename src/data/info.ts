@@ -20,7 +20,7 @@ const skillsData: SkillDataItem[] = [
         для фронтовой части работы и&nbsp;Node js&nbsp;для серверной. Я&nbsp;всегда в&nbsp;поиске интересного опыта,
         технологий так что не&nbsp;стесняйтесь и&nbsp;обращайтесь <a href="mailto:Kukhmirov85@gmail.com" class="description-modal__link">ко мне</a>,
         если считаете, что я&nbsp;подхожу вам.<br /><br /><h1 class="font pro-display m m--500">SKILS</h1><br /><p class="description-modal__skils">
-        HTML - 90%<br />CSS - 83%<br />SCSS - 78%<br />JS - 70%<br />VUE 2 - 80%<br />VUE 3 - 71%<br /> ThreeJs - 45%<br />NODE JS - 37%HTML - 90%<br />CSS - 83%<br />SCSS - 78%<br />JS - 70%<br />VUE 2 - 80%<br />VUE 3 - 71%<br /> ThreeJs - 45%<br />NODE JS - 37%</p>`,
+        HTML - 90%<br />CSS - 83%<br />SCSS - 78%<br />JS - 70%<br />VUE 2 - 80%<br />VUE 3 - 71%<br /> ThreeJs - 45%<br />NODE JS - 37%</p>`,
     },
 ];
 export const contactsData = {
