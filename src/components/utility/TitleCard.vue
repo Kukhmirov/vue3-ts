@@ -26,6 +26,11 @@
         background-color: rgba(255, 255, 255, 0.01);
         transition: background-color 0.3s ease-in-out;
         color: white;
+        @media (max-width: 767px) {
+            h1 {
+                font-size: 22px;
+            }
+        }
         &:hover {
             background-color: rgba(255, 255, 255, 0.2);
             cursor: none;

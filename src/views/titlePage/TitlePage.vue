@@ -113,5 +113,21 @@ const showDescription = (event: Event, title: string) => {
         grid-template-rows: 1fr 1fr;
         grid-gap: 50px;
     }
+
+    @media (max-width: 767px) {
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
+        padding: 0 24px;
+        &__content {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
+            grid-gap: 24px;
+        }
+        &__title {
+            text-align: center;
+            font-size: 26px;
+        }
+    }
 }
 </style>
