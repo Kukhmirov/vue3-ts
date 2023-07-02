@@ -35,7 +35,6 @@ interface WorkCardProps {
 }
 
 const props = defineProps<WorkCardProps>();
-console.log(props.imgLink);
 
 </script>
 
@@ -65,8 +64,9 @@ console.log(props.imgLink);
     }
     &__info {
         position: absolute;
-        top: -100%;
+        top: 100%;
         left: 0;
+        transform: translateY(-100%);
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, 0.7);
@@ -80,6 +80,7 @@ console.log(props.imgLink);
     &:hover &__info {
         top: 0;
         opacity: 1;
+        transform: translateY(0%);
     }
 }
 </style>
