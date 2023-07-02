@@ -2,7 +2,10 @@
     <div
         ref="modal"
         class="description-modal"
-        :class="{'open': isOpenModal}"
+        :class="{
+            'open': isOpenModal,
+            'modal-up': isModalUp
+        }"
     >   
         <div
             class="description-modal__hide-back"
@@ -57,8 +60,11 @@
                 </div>
             </div>
         </template>
-        <template v-else>
+        <template v-if="showWorkContent">
             <the-slider />
+        </template>
+        <template v-if="showPet">
+            <h1 class="closed-modal">Раздел в разаботке</h1>
         </template>
     </div>
 </template>
@@ -84,8 +90,18 @@ const emit = defineEmits([ "closeModal" ]);
 const info = ref<SkillDataItem[]>(getSkillsData());
 
 const showInfo = computed(() => {
-    return props.typeModal !== MODAL_TYPE.WORK;
+    return props.typeModal === MODAL_TYPE.INFO || props.typeModal === MODAL_TYPE.CONNECT;
 });
+const showWorkContent = computed(() => {
+    return props.typeModal === MODAL_TYPE.WORK;
+});
+const showPet = computed(() => {
+    return props.typeModal === MODAL_TYPE.PET;
+});
+const isModalUp = computed(() => {
+    return window.innerWidth < 768;
+});
+
 const displayText = ref("");
 const text = ref<string>("");
 const contactsData = ref();
@@ -98,7 +114,6 @@ if (props.typeModal === MODAL_TYPE.INFO) {
     const contactData = useDataStore();
     contactsData.value = contactData.getContactsData;
     text.value = contactsData.value.contactText;
-    // contactData.value = contactsData.value.contactData;
 }
 
 
@@ -150,7 +165,7 @@ const watchModalHeight = () => {
 
 .description-modal {
     background-color: $black;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -166,6 +181,15 @@ const watchModalHeight = () => {
     }
     &.open {
         height: fit-content;
+    }
+    &.modal-up {
+        bottom: auto;
+        top: 0;
+        max-height: 80vh;
+        @media (max-width: 767px) {
+            top: initial;
+            bottom: 0;
+        }
     }
     &__hide-back {
         position: fixed;
@@ -231,5 +255,10 @@ const watchModalHeight = () => {
             height: 30px;
         }
     }
+}
+
+.closed-modal {
+    color: $white;
+    font-size: 34px;
 }
 </style>

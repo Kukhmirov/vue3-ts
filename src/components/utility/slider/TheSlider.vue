@@ -98,12 +98,14 @@ const dragScroll = (deltaX: number) => {
 
 .slider {
     &__wrapper {
+        position: relative;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        height: 100%;
+        min-height: 100%;
         width: 100%;
         margin-top: 30px;
+        -webkit-overflow-scrolling: touch;
         overflow-x: scroll;
         &::-webkit-scrollbar {
             background-color: $black;
