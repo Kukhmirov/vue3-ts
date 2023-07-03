@@ -116,7 +116,7 @@ function animate(): void {
 
 // Звезды
 const createStars = () => {
-    const starGeometry = new THREE.SphereGeometry(80, 14, 14);
+    const starGeometry = new THREE.SphereGeometry(8, 14, 14);
     const textureLoader = new THREE.TextureLoader();
     const starMaterial = new THREE.MeshBasicMaterial({
         map: textureLoader.load(milkSpace),
