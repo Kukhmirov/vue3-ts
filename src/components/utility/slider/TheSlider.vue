@@ -16,12 +16,17 @@
         >
             <work-card 
                 v-bind="workCard"
+                :index-element="index"
+                :current-index="currentIndex"
+                @update:isOpenMobileWordCard="toggleMobileInfo(index)"
             />
         </template>
     </div>
 </template>
   
 <script setup lang="ts">
+import { ref } from "vue";
+
 import WorkCard from "@/components/utility/WorkCard.vue";
 import { useDataStore } from "@/stores/getData";
 
@@ -91,6 +96,11 @@ const dragScroll = (deltaX: number) => {
     }
     wrapper.scrollLeft += deltaX;
 };
+
+const currentIndex = ref(0);
+const toggleMobileInfo = (index: number) => {
+    currentIndex.value = index;
+};
 </script>
   
 <style lang="scss" scoped>
@@ -107,6 +117,9 @@ const dragScroll = (deltaX: number) => {
         margin-top: 30px;
         -webkit-overflow-scrolling: touch;
         overflow-x: scroll;
+        @media (max-width: 767px) {
+            flex-direction: column;
+        }
         &::-webkit-scrollbar {
             background-color: $black;
         }
