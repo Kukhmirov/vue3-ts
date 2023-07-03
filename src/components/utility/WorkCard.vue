@@ -1,12 +1,16 @@
 <template>
     <div
         class="work-card"
+        @click="toggleMobileInfo"
     >
         <img
             :src=imgLink
             :alt=imgAlt
         >
-        <div class="work-card__info">
+        <div
+            class="work-card__info"
+            :class="{ 'active': isActive }"
+        >
             <h1 class="font pro-display s s--500">
                 {{ title }}
             </h1>
@@ -25,6 +29,10 @@
 </template>
 
 <script setup lang="ts">
+import { computed, ref } from "vue";
+
+import { EMITS } from "@/data/constants/modalName";
+
 
 interface WorkCardProps {
     title: string;
@@ -32,10 +40,25 @@ interface WorkCardProps {
     imgLink: string;
     imgAlt: string;
     outSideLink?: string;
+    indexElement: number;
+    currentIndex: number;
 }
 
 const props = defineProps<WorkCardProps>();
+const emit = defineEmits([ EMITS.isOpenMobileWordCard ]);
+const isMobile = ref(window.matchMedia("(max-width: 767px)").matches);
 
+const showInfo = ref(false);
+const isActive = computed(() => {
+    return showInfo.value && props.indexElement === props.currentIndex;
+});
+
+const toggleMobileInfo = () => {
+    if(isMobile.value) {
+        emit(EMITS.isOpenMobileWordCard, props.indexElement);
+        showInfo.value = true;
+    }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -76,11 +99,22 @@ const props = defineProps<WorkCardProps>();
         padding: 20px;
         opacity: 0;
         transition: all 0.2s ease-out;
+        @media(max-width: 767px) {
+            left: -100%;
+        }
+        &.active {
+            top: 0;
+            opacity: 1;
+            left: 0;
+            transform: translateY(0%);
+        }
     }
-    &:hover &__info {
-        top: 0;
-        opacity: 1;
-        transform: translateY(0%);
+    @media (min-width: 767px) {
+        &:hover &__info {
+            top: 0;
+            opacity: 1;
+            transform: translateY(0%);
+        }
     }
 }
 </style>

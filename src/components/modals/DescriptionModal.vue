@@ -105,7 +105,6 @@ const isModalUp = computed(() => {
 const displayText = ref("");
 const text = ref<string>("");
 const contactsData = ref();
-const contactData = ref();
 
 
 if (props.typeModal === MODAL_TYPE.INFO) {
@@ -115,7 +114,6 @@ if (props.typeModal === MODAL_TYPE.INFO) {
     contactsData.value = contactData.getContactsData;
     text.value = contactsData.value.contactText;
 }
-
 
 const index = ref(0);
 
@@ -183,6 +181,7 @@ const watchModalHeight = () => {
         height: fit-content;
     }
     &.modal-up {
+        position: relative;
         bottom: auto;
         top: 0;
         max-height: 80vh;
@@ -195,6 +194,9 @@ const watchModalHeight = () => {
         position: fixed;
         top: 0;
         width: 100%;
+        @media (max-width: 767px) {
+            display: none;
+        }
     }
 
     &__close {

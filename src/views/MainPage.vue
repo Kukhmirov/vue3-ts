@@ -3,6 +3,7 @@
     <title-page @update:isOpen="openInformationModal" />
     <description-modal
         v-if="isOpenModal"
+        :key="typeModal"
         :is-open-modal="isOpenModal"
         :type-modal="typeModal"
         @closeModal="isOpenModal=!isOpenModal"
@@ -23,5 +24,8 @@ const typeModal = ref<string>("");
 const openInformationModal = (openModal: boolean, typeModals: string) => {
     isOpenModal.value = openModal;
     typeModal.value = typeModals;
+    setTimeout(() => {
+        window.scrollTo(0, document.body.scrollHeight - 100);
+    }, 300);
 };
 </script>

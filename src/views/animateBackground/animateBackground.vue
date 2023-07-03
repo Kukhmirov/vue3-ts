@@ -10,7 +10,7 @@ import * as THREE from "three";
 import { Lensflare, LensflareElement } from "three/addons/objects/Lensflare.js";
 import { onMounted, ref, watchEffect } from "vue";
 
-import { sunTexture, eartTexture, lensflare, milkSpace } from "@/assets/image/image";
+import { sunTexture, eartTexture, lensflare, milkSpace, textureBump, textureCloud } from "@/assets/image/image";
 import useMousePosition from "@/utils/my-mouse-plugin";
 
 
@@ -23,6 +23,8 @@ const { mouseX, mouseY } = useMousePosition();
 let startPlanetPosition: THREE.Vector3;
 let startSunPosition: THREE.Vector3;
 let scrollPosition = 0;
+let cloudMesh: THREE.Mesh;
+let starMesh: THREE.Mesh;
 
 
 // Создание сцены, камеры и 3D объекта
@@ -37,19 +39,35 @@ function init(): void {
     
     //Добавление звездного поля
     const stars = createStars();
-    scene.add(stars);
 
     // Создание 3D объекта
     const geometry = new THREE.SphereGeometry(1, 32, 32);
     const textureLoader = new THREE.TextureLoader().load(eartTexture);
+    const textureBumpLoader = new THREE.TextureLoader().load(textureBump);
+
+    const eartMaterial = new THREE.MeshStandardMaterial({
+        roughness: 1,
+        metalness: 0,
+        map: textureLoader,
+        bumpMap: textureBumpLoader,
+        bumpScale: 0.3,
+    });
+
     const textureSun = new THREE.TextureLoader().load(sunTexture);
     const textureLoader3 = new THREE.TextureLoader().load(lensflare);
 
-    const material = new THREE.MeshStandardMaterial({
-        map: textureLoader,
-    });
-    planet = new THREE.Mesh(geometry, material);
+    planet = new THREE.Mesh(geometry, eartMaterial);
     scene.add(planet);
+
+    // Облака для планеты
+    const cloudGeometry = new THREE.SphereGeometry(1.02, 32, 32);
+    const textureCloudLoader = new THREE.TextureLoader().load(textureCloud);
+    const eartCloudMaterial = new THREE.MeshStandardMaterial({
+        map: textureCloudLoader,
+        transparent: true,
+    });
+    cloudMesh = new THREE.Mesh(cloudGeometry, eartCloudMaterial);
+    scene.add(cloudMesh);
 
     // Создание двух направленных источников света (солнце и "восход")
     const lights = new THREE.DirectionalLight(0xffffff, 0.9);
@@ -88,45 +106,25 @@ function init(): void {
 function animate(): void {
     requestAnimationFrame(animate);
     planet.rotation.y += 0.001;
+    cloudMesh.rotation.y -= 0.0007;
+    starMesh.rotation.y += 0.0002;
     camera.position.x += (mouseX.value - camera.position.x) * 0.05;
     camera.position.y += (mouseY.value - camera.position.y) * 0.05;
     camera.lookAt(scene.position);
     renderer.render(scene, camera);
 }
 
-function createStars(): THREE.Points {
-    const geometry = new THREE.BufferGeometry();  
-    const vertices = [];
-
-    // Создание 1000 рандомных точек
-    for (let i = 0; i < 1000; i ++) {
-        const x = Math.random() * 2000 - 1000;
-        const y = Math.random() * 2000 - 1000;
-        const z = Math.random() * 2000 - 1000;
-        vertices.push(x, y, z);
-    }
-
-    geometry.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
-
-    // Создание текстуры звездного поля
-    const sprite = new THREE.TextureLoader().load(milkSpace);
-    sprite.wrapS = THREE.RepeatWrapping;
-    sprite.wrapT = THREE.RepeatWrapping;
-    sprite.repeat.set(4, 4);
-    const starMaterial = new THREE.PointsMaterial({
-        color: 0xffffff,
-        size: 2.5, // <--- увеличить размер
-        map: sprite,
-        blending: THREE.AdditiveBlending, // <--- добавить параметр `blending`
-        transparent: true,
-        opacity: 0.9,
-        sizeAttenuation: false,
+// Звезды
+const createStars = () => {
+    const starGeometry = new THREE.SphereGeometry(8, 14, 14);
+    const textureLoader = new THREE.TextureLoader();
+    const starMaterial = new THREE.MeshBasicMaterial({
+        map: textureLoader.load(milkSpace),
+        side: THREE.BackSide,
     });
- 
-    const stars = new THREE.Points(geometry, starMaterial);
-
-    return stars;
-}
+    starMesh = new THREE.Mesh(starGeometry, starMaterial);
+    scene.add(starMesh);
+};
 
 // Обработка изменений размеров окна браузера
 function handleResize(): void {
@@ -156,6 +154,9 @@ window.onscroll = () => {
         planet.position.x -= planetOffset;
         planet.position.z -= planetOffset;
         planet.position.y += planetOffset;
+        cloudMesh.position.x -= planetOffset;
+        cloudMesh.position.z -= planetOffset;
+        cloudMesh.position.y += planetOffset;
 
         scene.children.find((child) => child.type === "PointLight")!.position.x += sunOffset;
     }

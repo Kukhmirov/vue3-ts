@@ -7,6 +7,7 @@ const MODAL_TYPE = {
   
 const EMITS = {
     isOpen: "update:isOpen",
+    isOpenMobileWordCard: "update:isOpenMobileWordCard",
 };
   
 export { MODAL_TYPE, EMITS };
