@@ -24,13 +24,18 @@
                     class="font pro-display xxs xl--500"
                     v-html="displayText"
                 />
-                <template v-if="props.typeModal === MODAL_TYPE.INFO">
+                <div
+                    v-if="props.typeModal === MODAL_TYPE.INFO"
+                    class="description-modal__photo-box"
+                >
+                    <Loader v-if="!isImgLoaded" />
                     <img
                         class="description-modal__photo"
                         src="@/assets/image/img/photo-me.jpg"
                         alt="фотография Кухмиров"
+                        @load="isImgLoaded = true"
                     >
-                </template>
+                </div>
                 <div
                     v-else
                     class="description-modal__icons-wrapper"
@@ -72,6 +77,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 
+import Loader from "@/components/loader/DefaultLoader.vue";
 import TheSlider from "@/components/utility/slider/TheSlider.vue";
 import { MODAL_TYPE } from "@/data/constants/modalName";
 import { getSkillsData, type SkillDataItem } from "@/data/info";
@@ -88,7 +94,7 @@ const props = defineProps<Props>();
 const emit = defineEmits([ "closeModal" ]);
 
 const info = ref<SkillDataItem[]>(getSkillsData());
-
+const isImgLoaded = ref(false);
 const showInfo = computed(() => {
     return props.typeModal === MODAL_TYPE.INFO || props.typeModal === MODAL_TYPE.CONNECT;
 });
@@ -234,8 +240,12 @@ const watchModalHeight = () => {
     &__skils {
         color: $sun; 
     }
-    &__photo {
+    &__photo-box {
+        width: 150px;
         height: 300px;
+    }
+    &__photo {
+        height: 100%;
         margin-top: 20px;
         border: solid 8px #fff;
         border-radius: 16px;

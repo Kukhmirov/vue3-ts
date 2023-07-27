@@ -3,9 +3,11 @@
         class="work-card"
         @click="toggleMobileInfo"
     >
+        <Loader v-if="!isImgLoaded" />
         <img
             :src=imgLink
             :alt=imgAlt
+            @load="isImgLoaded = true"
         >
         <div
             class="work-card__info"
@@ -31,6 +33,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 
+import Loader from "@/components/loader/DefaultLoader.vue";
 import { EMITS } from "@/data/constants/modalName";
 
 
@@ -46,6 +49,9 @@ interface WorkCardProps {
 
 const props = defineProps<WorkCardProps>();
 const emit = defineEmits([ EMITS.isOpenMobileWordCard ]);
+
+const isImgLoaded = ref(false);
+
 const isMobile = ref(window.matchMedia("(max-width: 767px)").matches);
 
 const showInfo = ref(false);
@@ -65,6 +71,7 @@ const toggleMobileInfo = () => {
 .work-card {
     position: relative;
     height: 350px;
+    width: 100%;
     max-width: 600px;
     margin: 0 5px 10px 0;
     overflow: hidden;
